@@ -9,9 +9,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += ((transform.forward * Time.deltaTime) * 100.0f);
+        transform.position += ((transform.forward * Time.deltaTime) * 20.0f);
 
-        if(Vector3.Distance(transform.position, Camera.main.transform.position) >= 60.0f)
+        if(Vector3.Distance(transform.position, referenceObject.position) >= 60.0f)
         {
             Destroy(gameObject);
         }
@@ -21,12 +21,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "AI" || other.tag == "Obstacle")
         {
-            if(other.tag == "AI")
-            {
-                Destroy(other.gameObject);
-            }
-
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

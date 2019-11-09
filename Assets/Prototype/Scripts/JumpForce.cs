@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class JumpForce : MonoBehaviour
 {
+    [SerializeField]
+    private float force = 0.0f;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Trigger")
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 500.0f, 0.0f), ForceMode.Impulse);
+            GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, force, 0.0f), ForceMode.Impulse);
         }
     }
 }
