@@ -44,14 +44,37 @@ public class AnimatorRotateTest : MonoBehaviour
     [SerializeField]
     private float spine4Z;
 
+    [SerializeField]
+    private bool debugAngle;
+    [SerializeField]
+    private bool rotateDebug;
+
+    [SerializeField]
+    private Camera cam;
+
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 targetDir = target.position - spine4.position;
-        spine1.eulerAngles = new Vector3(spine1X, spine1Y, spine1Z);
-        spine2.eulerAngles = new Vector3(spine2X, spine2Y, spine2Z);
-        spine3.eulerAngles = new Vector3(spine3X, spine3Y, spine3Z);
-        Debug.Log(Vector3.SignedAngle(targetDir, -spine4.right, -Vector3.forward));
-        spine4.eulerAngles = new Vector3(spine4X, spine4Y, Vector3.SignedAngle(targetDir, -spine4.right, -Vector3.forward));
+        Vector3 targetDir = target.position;
+
+        if (rotateDebug)
+        {
+            transform.LookAt(new Vector3(targetDir.x, transform.position.y, targetDir.z));
+            spine1.localEulerAngles = new Vector3(spine1X, spine1Y, spine1Z);
+            spine2.localEulerAngles = new Vector3(spine2X, spine2Y, spine2Z);
+            spine3.localEulerAngles = new Vector3(spine3X, spine3Y, spine3Z);
+            spine4.LookAt(targetDir);
+            spine4.localEulerAngles = new Vector3(spine4.localEulerAngles.x, 0.0f, 0.0f);
+        }
+
+        if (debugAngle)
+        {
+            Debug.Log(Vector3.SignedAngle(transform.forward, targetDir, transform.right));
+        }
+        else
+        {
+            Debug.Log("From angle: " + (new Vector3(0.0f, spine4.position.y, 0.0f)));
+            Debug.Log("To angle: " + targetDir);
+        }
     }
 }
